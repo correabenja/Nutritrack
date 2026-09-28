@@ -1,0 +1,592 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+// ========================================
+// CHIP (etiqueta pequeña con ícono)
+// ========================================
+.nt-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: $radius-pill;
+    background-color: #EDEBFC;
+    color: $violet;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+
+    i {
+        font-size: 14px;
+    }
+}
+
+// ========================================
+// CONTENEDORES CENTRADOS DE ANCHO MÁXIMO
+// ========================================
+.container-question,
+.container-contact {
+    @extend %container-base;
+    max-width: $container-max;
+}
+
+.container-table {
+    @extend %container-base;
+    max-width: 1100px;
+}
+
+// ========================================
+// CARDS (imagen + texto)
+// ========================================
+.container-cards {
+    width: 100%;
+
+    .card {
+        border: none;
+        border-radius: $radius-lg;
+        overflow: hidden;
+        background-color: $surface;
+        box-shadow: $shadow-card;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: stretch;
+        min-height: 150px;
+    }
+}
+
+.img-card {
+    @include flex-center;
+    width: 48%;
+    margin-right: 7px;
+
+    img {
+        width: 100%;
+        height: 90%;
+        object-fit: cover;
+        border-radius: $radius-sm;
+    }
+}
+
+.txt-card {
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.card-title {
+    font-size: 20px;
+}
+
+.card-text {
+    color: rgba(51, 51, 51, 0.53);
+    font-size: 13px;
+    letter-spacing: -0.5px;
+}
+
+// Encabezados de sección reutilizables
+.head-about {
+    width: 100%;
+    margin: 0 auto 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    h2 {
+        color: $text-primary;
+        font-size: 1.7rem;
+        line-height: 1.2;
+        font-weight: 700;
+    }
+
+    p {
+        line-height: 1.7rem;
+        width: 90%;
+    }
+}
+
+// ========================================
+// FUNCIONES (página) — card vertical
+// ========================================
+.container-functions {
+    width: 90%;
+    max-width: 520px;
+    margin: 0 auto 1.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    background: $surface;
+    border: 1px solid $border-color;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(30, 40, 70, 0.05);
+    @include transition-base(transform, box-shadow);
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(30, 40, 70, 0.08);
+
+        .img-functions img {
+            transform: scale(1.03) translateY(-3px);
+        }
+    }
+
+    @include respond-to(desktop) {
+        margin: 0 auto;
+    }
+}
+
+.img-functions {
+    @include flex-center;
+    width: 100%;
+    height: 170px;
+    border-radius: $radius-md;
+    background: linear-gradient(145deg, #F5F6FF, #F4FBF9);
+    overflow: hidden;
+
+    img {
+        width: 80%;
+        max-width: 280px;
+        height: 160px;
+        object-fit: contain;
+        transition: transform 0.4s ease;
+    }
+}
+
+.items-functions {
+    order: 3;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.list-functions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        color: #555B68;
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+}
+
+// ========================================
+// TABLA COMPARATIVA DE PLANES
+// ========================================
+.body-table {
+    width: 100%;
+    background-color: $surface;
+    border: 1px solid $border-color;
+    border-radius: 18px;
+    overflow-x: auto;
+    box-shadow: $shadow-card;
+}
+
+.table {
+    width: 100%;
+    min-width: 460px;
+    border-collapse: collapse;
+    color: #3D4A42;
+
+    thead {
+        background-color: #EEF5EF;
+
+        th {
+            padding: 14px 12px;
+            border: none;
+            color: #52665A;
+            font-size: 13px;
+            font-weight: 700;
+            vertical-align: middle;
+
+            &:first-child {
+                text-align: left;
+            }
+
+            &:nth-child(3) {
+                color: #6F9B76;
+            }
+
+            @include respond-to(tablet) {
+                padding: 20px 25px;
+                font-size: 14px;
+            }
+
+            &:nth-child(2),
+            &:nth-child(3) {
+                @include respond-to(tablet) {
+                    width: 180px;
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            border-top: 1px solid #EDF1ED;
+            transition: background-color 0.25s ease;
+
+            &:hover {
+                background-color: #FAFCF9;
+            }
+        }
+
+        td {
+            padding: 14px 12px;
+            border: none;
+            font-size: 13px;
+            color: #56625A;
+            vertical-align: middle;
+
+            &:first-child {
+                color: #344239;
+                font-weight: 500;
+            }
+
+            &:nth-child(3) {
+                background-color: rgba(236, 246, 238, 0.35);
+            }
+
+            @include respond-to(tablet) {
+                padding: 20px 25px;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+// ========================================
+// PÁGINA BENEFICIOS
+// ========================================
+.profits .container-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+
+    @include respond-to(tablet) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(desktop) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.card-profit {
+    @include flex-center;
+    min-height: 150px;
+    background-color: $surface;
+    text-align: center;
+    border-radius: $radius-sm;
+    padding: 16px;
+}
+
+// ========================================
+// TEAM — carrusel (página nosotros)
+// ========================================
+.team .carousel {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.team .carousel-inner {
+    border-radius: 1.5rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.team .carousel-item {
+    position: relative;
+    height: 420px;
+    background-color: #DDD;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.05) 65%);
+    }
+}
+
+.team .carousel-caption {
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 4rem 3rem 1.8rem;
+    text-align: center;
+
+    h5 {
+        color: #FFF;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+    }
+
+    p {
+        color: #E8E8E8;
+        font-size: 0.95rem;
+    }
+}
+
+// ========================================
+// CONTACTO — preguntas frecuentes (acordeón)
+// ========================================
+.accordion-item {
+    margin-bottom: 10px;
+    border: 1px solid $border-color !important;
+    border-radius: 12px !important;
+    background-color: $surface;
+}
+
+.accordion-button {
+    padding: 20px;
+    font-size: 15px;
+    font-weight: 600;
+
+    &:hover {
+        color: $violet !important;
+    }
+
+    &:focus {
+        box-shadow: none !important;
+    }
+
+    &::after {
+        width: 14px;
+        height: 14px;
+        background-size: 14px;
+    }
+
+    &:not(.collapsed) {
+        color: $violet !important;
+        background-color: $surface !important;
+    }
+}
+
+.accordion-body {
+    padding: 0 20px 20px;
+    color: $text-muted;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+// ========================================
+// CONTACTO — información
+// ========================================
+.contact-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+
+    @include respond-to(desktop) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.contact-icon {
+    @include flex-center;
+    flex-shrink: 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background-color: rgba(108, 92, 231, 0.15);
+    color: $violet;
+    font-size: 18px;
+}
+
+.contact-info-text {
+    h3 {
+        color: #222;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    p {
+        color: $text-muted;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+}
+
+.map-placeholder {
+    @include flex-center;
+    width: 100%;
+    height: 285px;
+    margin-top: 30px;
+    border: 1px solid $border-color;
+    border-radius: 16px;
+    background-color: #F8FAF9;
+}
+
+.map-content {
+    text-align: center;
+    color: #8A948F;
+
+    i {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+}
+
+// ========================================
+// CONTACTO — formulario
+// ========================================
+.contact-form {
+    padding: 30px 22px;
+    border: 1px solid $border-color;
+    border-radius: 18px;
+    background-color: $surface;
+    box-shadow: $shadow-card;
+    text-align: center;
+
+    h2 {
+        color: #222;
+        font-size: 27px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+}
+
+.form-description {
+    color: $text-muted;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+
+    @include respond-to(tablet) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    &.full {
+        grid-column: 1 / -1;
+    }
+
+    label {
+        margin-bottom: 7px;
+        color: #333;
+        font-size: 13px;
+        font-weight: 600;
+
+        span {
+            margin-left: 5px;
+            color: #9CA3AF;
+            font-weight: 400;
+        }
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1px solid #DFE5E1;
+        border-radius: 9px;
+        background-color: $surface;
+        color: #333;
+        font-family: inherit;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #A0A8A4;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: $violet;
+        box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15);
+    }
+
+    textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+}
+
+.privacy {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 3px;
+
+    input {
+        width: 16px;
+        height: 16px;
+        margin-top: 2px;
+        accent-color: $green-cta;
+    }
+
+    label {
+        color: $text-muted;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+}
+
+.submit-button {
+    @extend %button-base;
+    width: 100%;
+    gap: 9px;
+    padding: 13px 20px;
+    border-radius: 9px;
+    background-color: $green-cta;
+    color: $surface;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        background-color: $green-cta-dark;
+        transform: translateY(-2px);
+        box-shadow: 0 7px 18px rgba(47, 143, 98, 0.2);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}

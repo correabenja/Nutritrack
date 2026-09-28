@@ -1,0 +1,66 @@
+@use "sass:list";
+@use "variables" as *;
+
+// ========================================
+// MIXINS
+// ========================================
+
+// Centra contenido con flexbox. Se usa en todos los bloques (chips de
+// íconos, botones, cards) que necesitan alinear y centrar su contenido.
+@mixin flex-center($direction: row, $gap: 0) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: center;
+    justify-content: center;
+
+    @if $gap != 0 {
+        gap: $gap;
+    }
+}
+
+// Arma un listado de "propiedad $transition" para no repetir la misma
+// duración/curva en cada regla que anima varias propiedades.
+@mixin transition-base($properties...) {
+    $list: ();
+
+    @each $prop in $properties {
+        $list: list.append($list, $prop $transition, comma);
+    }
+
+    transition: $list;
+}
+
+// Centraliza los breakpoints del proyecto (tablet / desktop) para no
+// repetir los valores de min-width en cada media query.
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == tablet {
+        @media (min-width: $breakpoint-tablet) {
+            @content;
+        }
+    } @else if $breakpoint == desktop {
+        @media (min-width: $breakpoint-desktop) {
+            @content;
+        }
+    }
+}
+
+// ========================================
+// PLACEHOLDERS (@extend)
+// ========================================
+
+// Base compartida por los botones de acción (sign-up, submit-button):
+// cada uno agrega encima su propio color, radio y espaciado.
+%button-base {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+// Base compartida por los contenedores centrados de ancho máximo
+// (tabla, preguntas frecuentes, formulario de contacto).
+%container-base {
+    width: 100%;
+    margin: 0 auto;
+}
