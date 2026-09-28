@@ -2,7 +2,7 @@
 @use "mixins" as *;
 
 // ========================================
-// CHIP (etiqueta pequeña con ícono)
+// GLOBAL — elementos reutilizados en las 5 páginas
 // ========================================
 .nt-chip {
     display: inline-flex;
@@ -21,22 +21,32 @@
     }
 }
 
-// ========================================
-// CONTENEDORES CENTRADOS DE ANCHO MÁXIMO
-// ========================================
-.container-question,
-.container-contact {
-    @extend %container-base;
-    max-width: $container-max;
+// Encabezado de sección reutilizable (chip + título + texto).
+.head-about {
+    width: 100%;
+    margin: 0 auto 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    h2 {
+        color: $text-primary;
+        font-size: 1.7rem;
+        line-height: 1.2;
+        font-weight: 700;
+    }
+
+    p {
+        line-height: 1.7rem;
+        width: 90%;
+    }
 }
 
-.container-table {
-    @extend %container-base;
-    max-width: 1100px;
-}
-
 // ========================================
-// CARDS (imagen + texto)
+// INICIO
+// (las cards de imagen + texto también las reutiliza Nosotros
+// en la sección "Nuestra misión")
 // ========================================
 .container-cards {
     width: 100%;
@@ -47,6 +57,12 @@
         overflow: hidden;
         background-color: $surface;
         box-shadow: $shadow-card;
+        @include transition-base(transform, box-shadow);
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px rgba(40, 60, 60, 0.12);
+        }
     }
 
     .row {
@@ -86,210 +102,8 @@
     letter-spacing: -0.5px;
 }
 
-// Encabezados de sección reutilizables
-.head-about {
-    width: 100%;
-    margin: 0 auto 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    h2 {
-        color: $text-primary;
-        font-size: 1.7rem;
-        line-height: 1.2;
-        font-weight: 700;
-    }
-
-    p {
-        line-height: 1.7rem;
-        width: 90%;
-    }
-}
-
 // ========================================
-// FUNCIONES (página) — card vertical
-// ========================================
-.container-functions {
-    width: 90%;
-    max-width: 520px;
-    margin: 0 auto 1.5rem;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    background: $surface;
-    border: 1px solid $border-color;
-    border-radius: 18px;
-    box-shadow: 0 6px 20px rgba(30, 40, 70, 0.05);
-    @include transition-base(transform, box-shadow);
-
-    &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(30, 40, 70, 0.08);
-
-        .img-functions img {
-            transform: scale(1.03) translateY(-3px);
-        }
-    }
-
-    @include respond-to(desktop) {
-        margin: 0 auto;
-    }
-}
-
-.img-functions {
-    @include flex-center;
-    width: 100%;
-    height: 170px;
-    border-radius: $radius-md;
-    background: linear-gradient(145deg, #F5F6FF, #F4FBF9);
-    overflow: hidden;
-
-    img {
-        width: 80%;
-        max-width: 280px;
-        height: 160px;
-        object-fit: contain;
-        transition: transform 0.4s ease;
-    }
-}
-
-.items-functions {
-    order: 3;
-    width: 100%;
-    margin-top: 1rem;
-}
-
-.list-functions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-
-    li {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.6rem;
-        color: #555B68;
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
-}
-
-// ========================================
-// TABLA COMPARATIVA DE PLANES
-// ========================================
-.body-table {
-    width: 100%;
-    background-color: $surface;
-    border: 1px solid $border-color;
-    border-radius: 18px;
-    overflow-x: auto;
-    box-shadow: $shadow-card;
-}
-
-.table {
-    width: 100%;
-    min-width: 460px;
-    border-collapse: collapse;
-    color: #3D4A42;
-
-    thead {
-        background-color: #EEF5EF;
-
-        th {
-            padding: 14px 12px;
-            border: none;
-            color: #52665A;
-            font-size: 13px;
-            font-weight: 700;
-            vertical-align: middle;
-
-            &:first-child {
-                text-align: left;
-            }
-
-            &:nth-child(3) {
-                color: #6F9B76;
-            }
-
-            @include respond-to(tablet) {
-                padding: 20px 25px;
-                font-size: 14px;
-            }
-
-            &:nth-child(2),
-            &:nth-child(3) {
-                @include respond-to(tablet) {
-                    width: 180px;
-                }
-            }
-        }
-    }
-
-    tbody {
-        tr {
-            border-top: 1px solid #EDF1ED;
-            transition: background-color 0.25s ease;
-
-            &:hover {
-                background-color: #FAFCF9;
-            }
-        }
-
-        td {
-            padding: 14px 12px;
-            border: none;
-            font-size: 13px;
-            color: #56625A;
-            vertical-align: middle;
-
-            &:first-child {
-                color: #344239;
-                font-weight: 500;
-            }
-
-            &:nth-child(3) {
-                background-color: rgba(236, 246, 238, 0.35);
-            }
-
-            @include respond-to(tablet) {
-                padding: 20px 25px;
-                font-size: 14px;
-            }
-        }
-    }
-}
-
-// ========================================
-// PÁGINA BENEFICIOS
-// ========================================
-.profits .container-cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 24px;
-
-    @include respond-to(tablet) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include respond-to(desktop) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-.card-profit {
-    @include flex-center;
-    min-height: 150px;
-    background-color: $surface;
-    text-align: center;
-    border-radius: $radius-sm;
-    padding: 16px;
-}
-
-// ========================================
-// TEAM — carrusel (página nosotros)
+// NOSOTROS — equipo (carrusel)
 // ========================================
 .team .carousel {
     width: 100%;
@@ -343,8 +157,175 @@
 }
 
 // ========================================
-// CONTACTO — preguntas frecuentes (acordeón)
+// FUNCIONES
 // ========================================
+.container-functions {
+    width: 90%;
+    max-width: 520px;
+    margin: 0 auto 1.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    background: $surface;
+    border: 1px solid $border-color;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(30, 40, 70, 0.05);
+    @include transition-base(transform, box-shadow);
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(30, 40, 70, 0.08);
+
+        .img-functions img {
+            transform: scale(1.03) translateY(-3px);
+        }
+    }
+}
+
+.img-functions {
+    @include flex-center;
+    width: 100%;
+    height: 170px;
+    border-radius: $radius-md;
+    background: linear-gradient(145deg, #F5F6FF, #F4FBF9);
+    overflow: hidden;
+
+    img {
+        width: 80%;
+        max-width: 280px;
+        height: 160px;
+        object-fit: contain;
+        transition: transform 0.4s ease;
+    }
+}
+
+.items-functions {
+    order: 3;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.list-functions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        color: #555B68;
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+}
+
+// Tabla comparativa de planes
+.container-table {
+    @extend %container-base;
+    max-width: 1100px;
+}
+
+.body-table {
+    width: 100%;
+    background-color: $surface;
+    border: 1px solid $border-color;
+    border-radius: 18px;
+    overflow-x: auto;
+    box-shadow: $shadow-card;
+}
+
+.table {
+    width: 100%;
+    min-width: 460px;
+    border-collapse: collapse;
+    color: #3D4A42;
+
+    thead {
+        background-color: #EEF5EF;
+
+        th {
+            padding: 14px 12px;
+            border: none;
+            color: #52665A;
+            font-size: 13px;
+            font-weight: 700;
+            vertical-align: middle;
+
+            &:first-child {
+                text-align: left;
+            }
+
+            &:nth-child(3) {
+                color: #6F9B76;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            border-top: 1px solid #EDF1ED;
+            transition: background-color 0.25s ease;
+
+            &:hover {
+                background-color: #FAFCF9;
+            }
+        }
+
+        td {
+            padding: 14px 12px;
+            border: none;
+            font-size: 13px;
+            color: #56625A;
+            vertical-align: middle;
+
+            &:first-child {
+                color: #344239;
+                font-weight: 500;
+            }
+
+            &:nth-child(3) {
+                background-color: rgba(236, 246, 238, 0.35);
+            }
+        }
+    }
+}
+
+// ========================================
+// BENEFICIOS
+// ========================================
+.profits .container-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.card-profit {
+    @include flex-center;
+    min-height: 150px;
+    background-color: $surface;
+    text-align: center;
+    border-radius: $radius-sm;
+    padding: 16px;
+    @include transition-base(transform, box-shadow);
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 32px rgba(40, 60, 60, 0.12);
+    }
+}
+
+// ========================================
+// CONTACTO
+// ========================================
+.container-question,
+.container-contact {
+    @extend %container-base;
+    max-width: $container-max;
+}
+
+// Preguntas frecuentes (acordeón)
 .accordion-item {
     margin-bottom: 10px;
     border: 1px solid $border-color !important;
@@ -384,17 +365,11 @@
     line-height: 1.7;
 }
 
-// ========================================
-// CONTACTO — información
-// ========================================
+// Información de contacto
 .contact-row {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.5rem;
-
-    @include respond-to(desktop) {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 .contact-info-item {
@@ -456,9 +431,7 @@
     }
 }
 
-// ========================================
-// CONTACTO — formulario
-// ========================================
+// Formulario de contacto
 .contact-form {
     padding: 30px 22px;
     border: 1px solid $border-color;
@@ -486,10 +459,6 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 18px;
-
-    @include respond-to(tablet) {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 .form-group {
